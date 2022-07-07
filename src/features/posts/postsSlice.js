@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import { client } from '../../api/client'
 
 const initialState = {
@@ -7,6 +7,8 @@ const initialState = {
     error: null
 }
 
+// 1 arg = the prefix for the generated action types
+// 2 arg = A "payload creator" callback function that should return a Promise
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await client.get('/fakeApi/posts')
     return response.data
@@ -55,6 +57,7 @@ const postsSlice = createSlice({
         }
     },
     extraReducers(builder) {
+        //builder.addCase(actionCreator, reducer)
         builder.addCase(fetchPosts.pending, (state, action) => {
             state.status = 'loading'
         }).addCase(fetchPosts.fulfilled, (state, action) => {
