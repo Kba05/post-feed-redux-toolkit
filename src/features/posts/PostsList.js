@@ -15,6 +15,14 @@ export const PostList = () =>{
         if (postStatus === "idle"){
             dispatch(fetchPosts())
         }
+
+        fetch("/browse/Categories",{
+            method: "GET",
+            headers:{
+               Authorization: "Basic YWxleDphbGV4s"
+            }
+        }).then(res => res.json()).then((result) => { console.log(result.value[0].Text)},(error) => {console.log(error)})
+
     },[postStatus, dispatch])
 
     let content;
